@@ -17,4 +17,32 @@ module.exports = (app) => {
     app.get('/shorts/:shortsId', ShortsController.show)
     app.get('/shorts', ShortsController.index)
 
+    app.post('/upload', function (req, res) {
+        upload(req, res, function (err) {
+            // isUserAuthenicated,
+            if (err) {
+                return res.end("Error uploading file.")
+            }
+            res.end("File is uploaded")
+        })
+    })
+    app.post('/upload/delete', async function (req, res) {
+        try {
+            const fs = require('fs');
+            console.log(req.body.filename)
+            fs.unlink(process.cwd() + '/public/uploads/' + req.body.filename,
+                (err) => {
+                    if (err) throw err;
+                    res.send("Delete sucessful")
+                    // console.log('successfully deleted material file');
+                });
+        } catch (err) {
+            res.status(500).send({
+                error: 'An error has occured trying to delete file the material'
+            })
+        }
+
+    })
+
+
 }
