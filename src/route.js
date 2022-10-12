@@ -1,6 +1,8 @@
 const UserController = require('./controllers/UserController')
-const ShortsController = require('./controllers/ShortsController')
+const UserAuthenController = require('./controllers/UserAuthenController')
+const isAuthenController = require('./controllers/isAuthenController')
 const Shorts = require('./models/Shorts.js');
+const ShortsController = require('./controllers/ShortsController')
 
 module.exports = (app) => {
     app.post('/user', UserController.create)
@@ -15,5 +17,4 @@ module.exports = (app) => {
     app.get('/shorts/:shortsId', ShortsController.show)
     app.get('/shorts', ShortsController.index)
 
-    
 }
